@@ -1,57 +1,107 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Mindbox.Task;
 
-namespace Mindbox.Task
+/// <summary>The class of triangle figure.</summary>
+public readonly record struct Triangle : IFigure
 {
-    public readonly record struct Triangle : IFigure
+    /// <summary>Get length of the side A.</summary>
+    /// <value>Length of the side A.</value>
+    public double SideA { get; init; }
+
+    /// <summary>Get length of the side B.</summary>
+    /// <value>Length of the side B.</value>
+    public double SideB { get; init; }
+
+    /// <summary>Get length of the side C.</summary>
+    /// <value>Length of the side C.</value>
+    public double SideC { get; init; }
+
+    /// <summary>Get value for determining whether a triangle is a right triangle.</summary>
+    /// <value>
+    /// <see langword="true"/> - Triangle is right.
+    /// <see langword="false"/> - Triangle is not right.
+    /// </value>
+    public bool IsRightTriangle { get; init; }
+
+    /// <summary>Created a <see cref="Triangle"/>.</summary>
+    /// <param name="sideA">The side A.</param>
+    /// <param name="sideB">The side B.</param>
+    /// <param name="sideC">The side C.</param>
+    /// <exception cref="ArgumentException" />
+    public Triangle(double sideA, double sideB, double sideC)
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public double SideA { get; init; }
-
-        public double SideB { get; init; }
-
-        public double SideC { get; init; }
-
-
-        /// <summary></summary>
-        /// <param name="sideA"></param>
-        /// <param name="sideB"></param>
-        /// <param name="sideC"></param>
-        public Triangle(double sideA, double sideB, double sideC)
+        if(IsValidTriangle(sideA, sideB, sideC))
         {
             SideA = sideA;
             SideB = sideB;
             SideC = sideC;
-        }
 
-        /// <inheritdoc/>
-        public double GetArea()
-        {
-            throw new NotImplementedException();
+            IsRightTriangle = CheckIsRight(sideA, sideB, sideC);
         }
+        else
+        {
+            throw new ArgumentException("Each side must be smaller than the other two sides.");
+        }
+    }
 
-        /// <summary></summary>
-        /// <param name="sideA"></param>
-        /// <param name="sideB"></param>
-        /// <param name="sideC"></param>
-        /// <param name="triangle"></param>
-        /// <returns></returns>
-        public static bool TryCreate(double sideA, double sideB, double sideC, out Triangle? triangle)
-        {
-            triangle = null;
-            return false;
-        }
+    /// <inheritdoc/>
+    public double GetArea()
+    {
+        var halfPerimeter = GetPerimeter() / 2;
+        var area = Math.Sqrt(halfPerimeter * (halfPerimeter - SideA) * (halfPerimeter - SideB) * (halfPerimeter - SideC));
+        return area;
+    }
 
-        /// <summary></summary>
-        private static bool CheckCorrect(double sideA, double sideB, double sideC)
+    /// <summary>Get perimeter of triangle.</summary>
+    /// <returns>Perimeter a triangle.</returns>
+    public double GetPerimeter()
+    {
+        return SideA + SideB + SideC;
+    }
+
+    /// <summary>Try create rectangle from sides.</summary>
+    /// <param name="sideA">The side A.</param>
+    /// <param name="sideB">The side B.</param>
+    /// <param name="sideC">The side C.</param>
+    /// <param name="triangle">Created rectangle.</param>
+    /// <returns>
+    /// <see langword="true"/> - triangle successfully created.
+    /// <see langword="false"/> - triangle not created.
+    /// </returns>
+    /// <exception cref="ArgumentException" />
+    public static bool TryCreate(double sideA, double sideB, double sideC, out Triangle? triangle)
+    {
+        if(IsValidTriangle(sideA, sideB, sideC))
         {
-            return sideA + sideB > sideC && sideA + sideC > sideB && sideB + sideC > sideA;
+            triangle = new Triangle(sideA, sideB, sideC);
+            return true;
         }
+        triangle = null;
+        return false;
+    }
+
+    private static bool CheckIsRight(double sideA, double sideB, double sideC)
+    {
+        var hypotenuse = Math.Max(Math.Max(sideA, sideB), sideC);
+        var firstCathet = Math.Min(Math.Min(sideA, sideB), sideC);
+        var secondCathet = sideA + sideB + sideC - hypotenuse - firstCathet;
+        
+        return Math.Pow(hypotenuse, 2) == Math.Pow(firstCathet, 2) + Math.Pow(secondCathet, 2);
+    }
+
+    private static bool IsValidTriangle(double sideA, double sideB, double sideC)
+    {
+        CheckZeroSide(sideA, nameof(sideA));
+        CheckZeroSide(sideB, nameof(sideB));
+        CheckZeroSide(sideC, nameof(sideC));
+        
+        //Согласно теоремы, любая сторона треугольника должна быть меньше суммы двух других сторон.
+        return sideA + sideB > sideC && sideA + sideC > sideB && sideB + sideC > sideA;
+    }
+
+    private static void CheckZeroSide(double side, string parameterName)
+    {
+        if (double.IsNormal(side) && side > 0) return;
+
+        throw new ArgumentException($"The value of parameter '{parameterName}' must be a positive number, but was '{side}'.");
     }
 }
