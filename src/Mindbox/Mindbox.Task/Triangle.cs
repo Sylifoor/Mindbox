@@ -1,7 +1,7 @@
 ﻿namespace Mindbox.Task;
 
 /// <summary>The class of triangle figure.</summary>
-public readonly record struct Triangle : IFigure
+public readonly struct Triangle : IFigure
 {
     /// <summary>Get length of the side A.</summary>
     /// <value>Length of the side A.</value>
@@ -22,7 +22,7 @@ public readonly record struct Triangle : IFigure
     /// </value>
     public bool IsRightTriangle { get; init; }
 
-    /// <summary>Created a <see cref="Triangle"/>.</summary>
+    /// <summary>Created <see cref="Triangle"/> instance.</summary>
     /// <param name="sideA">The side A.</param>
     /// <param name="sideB">The side B.</param>
     /// <param name="sideC">The side C.</param>
