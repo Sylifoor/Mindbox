@@ -7,12 +7,12 @@ namespace Mindbox.Task.Tests
         [Test]
         public void GetArea_ValidTriangle_ReturnsCorrectArea()
         {
-            var triangle = new Triangle(3, 4, 5);
+            var triangle     = new Triangle(3, 4, 5);
             var expectedArea = 6;
 
             var actualArea = triangle.GetArea();
 
-            Assert.That(actualArea, Is.EqualTo(expectedArea), $"Expected area {expectedArea}, but was {actualArea}");
+            Assert.That(actualArea, Is.EqualTo(expectedArea), "Expected area is not equals actual area.", actualArea, actualArea );
         }
 
         [Test]
@@ -26,12 +26,12 @@ namespace Mindbox.Task.Tests
         [Test]
         public void GetPerimeter_ValidTriangle_ReturnsCorrectPerimeter()
         {
-            var triangle = new Triangle(3, 4, 5);
+            var triangle          = new Triangle(3, 4, 5);
             var expectedPerimeter = 12;
 
             var actualPerimeter = triangle.GetPerimeter();
 
-            Assert.That(actualPerimeter, Is.EqualTo(expectedPerimeter), $"Expected perimiter {expectedPerimeter}, but was {actualPerimeter}");
+            Assert.That(actualPerimeter, Is.EqualTo(expectedPerimeter), $"Expected perimeter is not equals actual perimeter", actualPerimeter, expectedPerimeter);
         }
 
         [Test]
@@ -46,11 +46,11 @@ namespace Mindbox.Task.Tests
             Assert.That(result, Is.True, "Triangle must be a created.");
             Assert.That(triangle, Is.Not.Null, "Triangle is null.");
             Assert.That(triangle.SideA, Is.EqualTo(sideA),
-                $"Side {sideA} is not equals trianlge side {triangle.SideA}");
+                $"Side A {sideA} is not equals triangle side A {triangle.SideA}");
             Assert.That(triangle.SideB, Is.EqualTo(sideB), 
-                $"Side {sideB} is not equals trianlge side {triangle.SideB}");
+                $"Side B {sideB} is not equals triangle side B {triangle.SideB}");
             Assert.That(triangle.SideC, Is.EqualTo(sideC), 
-                $"Side {sideC} is not equals trianlge side {triangle.SideC}");
+                $"Side C {sideC} is not equals triangle side C {triangle.SideC}");
         }
 
         [Test]

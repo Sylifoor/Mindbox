@@ -12,9 +12,9 @@ internal class CircleTests
         var circle = new Circle(radius);
 
         Assert.That(circle.Radius, Is.EqualTo(radius), 
-            $"Expected radius {radius}, but was {circle.Radius}");
+            "Expected radius is not equals actual radius.", circle.Radius, radius);
         Assert.That(circle.Diameter, Is.EqualTo(expectedDiameter), 
-            $"Expected diameter {expectedDiameter}, but was {circle.Diameter}");
+            "Expected diameter is not equals actual diameter", circle.Diameter, expectedDiameter);
     }
 
     [Test]
@@ -32,9 +32,10 @@ internal class CircleTests
         var circle         = new Circle(radius);
         var expectedLength = 31.42;
 
-        var length = circle.GetLength();
+        var actualLength = circle.GetLength();
 
-        Assert.That(length, Is.EqualTo(expectedLength).Within(0.01), $"Expected length {expectedLength}, but was {length}.");
+        Assert.That(actualLength, Is.EqualTo(expectedLength).Within(0.01), 
+            "Expected length is not equals actual length.", expectedLength, actualLength);
     }
 
     [Test]
@@ -44,8 +45,9 @@ internal class CircleTests
         var circle       = new Circle(radius);
         var expectedArea = 78.54;
 
-        var area = circle.GetArea();
+        var actualArea = circle.GetArea();
 
-        Assert.That(area, Is.EqualTo(expectedArea).Within(0.01), $"Expected area {expectedArea}, but was {area}.");
+        Assert.That(actualArea, Is.EqualTo(expectedArea).Within(0.01), 
+            $"Expected area is not equals actual area.", expectedArea, actualArea);
     }
 }
