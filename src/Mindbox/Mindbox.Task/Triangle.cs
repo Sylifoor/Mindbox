@@ -1,7 +1,7 @@
 ﻿namespace Mindbox.Task;
 
-/// <summary>The class of triangle figure.</summary>
-public readonly struct Triangle : IFigure
+/// <summary>The class of triangle shape.</summary>
+public record Triangle : IShape
 {
     /// <summary>Get length of the side A.</summary>
     /// <value>Length of the side A.</value>
@@ -47,7 +47,7 @@ public readonly struct Triangle : IFigure
     public double GetArea()
     {
         var halfPerimeter = GetPerimeter() / 2;
-        var area = Math.Sqrt(halfPerimeter * (halfPerimeter - SideA) * (halfPerimeter - SideB) * (halfPerimeter - SideC));
+        var area          = Math.Sqrt(halfPerimeter * (halfPerimeter - SideA) * (halfPerimeter - SideB) * (halfPerimeter - SideC));
         return area;
     }
 
@@ -81,8 +81,8 @@ public readonly struct Triangle : IFigure
 
     private static bool CheckIsRight(double sideA, double sideB, double sideC)
     {
-        var hypotenuse = Math.Max(Math.Max(sideA, sideB), sideC);
-        var firstCathet = Math.Min(Math.Min(sideA, sideB), sideC);
+        var hypotenuse   = Math.Max(Math.Max(sideA, sideB), sideC);
+        var firstCathet  = Math.Min(Math.Min(sideA, sideB), sideC);
         var secondCathet = sideA + sideB + sideC - hypotenuse - firstCathet;
         
         return Math.Pow(hypotenuse, 2) == Math.Pow(firstCathet, 2) + Math.Pow(secondCathet, 2);

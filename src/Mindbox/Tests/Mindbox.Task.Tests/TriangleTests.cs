@@ -45,12 +45,12 @@ namespace Mindbox.Task.Tests
 
             Assert.That(result, Is.True, "Triangle must be a created.");
             Assert.That(triangle, Is.Not.Null, "Triangle is null.");
-            Assert.That(triangle.Value.SideA, Is.EqualTo(sideA),
-                $"Side {sideA} is not equals trianlge side {triangle.Value.SideA}");
-            Assert.That(triangle.Value.SideB, Is.EqualTo(sideB), 
-                $"Side {sideB} is not equals trianlge side {triangle.Value.SideB}");
-            Assert.That(triangle.Value.SideC, Is.EqualTo(sideC), 
-                $"Side {sideC} is not equals trianlge side {triangle.Value.SideC}");
+            Assert.That(triangle.SideA, Is.EqualTo(sideA),
+                $"Side {sideA} is not equals trianlge side {triangle.SideA}");
+            Assert.That(triangle.SideB, Is.EqualTo(sideB), 
+                $"Side {sideB} is not equals trianlge side {triangle.SideB}");
+            Assert.That(triangle.SideC, Is.EqualTo(sideC), 
+                $"Side {sideC} is not equals trianlge side {triangle.SideC}");
         }
 
         [Test]

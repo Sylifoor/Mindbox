@@ -19,7 +19,7 @@ namespace Mindbox.Task.Tests
 
         [Test]
         [TestCase(null, double.NaN)] //temporary
-        public void GetArea_IFigure_Tests(IFigure figure, double expectedArea)
+        public void GetArea_IFigure_Tests(IShape figure, double expectedArea)
         {
             var actualArea = figure.GetArea();
 
