@@ -70,13 +70,22 @@ public record Triangle : IShape
     /// <exception cref="ArgumentException" />
     public static bool TryCreate(double sideA, double sideB, double sideC, out Triangle? triangle)
     {
-        if(IsValidTriangle(sideA, sideB, sideC))
+        triangle = default;
+        var isCreate = false;
+        try
         {
-            triangle = new Triangle(sideA, sideB, sideC);
-            return true;
+            if(IsValidTriangle(sideA, sideB, sideC))
+            {
+                triangle = new Triangle(sideA, sideB, sideC);
+                isCreate = true;
+            }
         }
-        triangle = null;
-        return false;
+        catch 
+        {
+            triangle = default;
+            isCreate = false;
+        }
+        return isCreate;
     }
 
     private static bool CheckIsRight(double sideA, double sideB, double sideC)

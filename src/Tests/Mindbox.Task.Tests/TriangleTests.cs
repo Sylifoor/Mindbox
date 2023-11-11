@@ -65,5 +65,18 @@ namespace Mindbox.Task.Tests
             Assert.That(result, Is.False, "Triangle is not be created.");
             Assert.That(triangle, Is.Null, "Triangle is not be created.");
         }
+
+        [Test]
+        public void TryCreate_InvalidTriangleWithZeroSide_ReturnsFalseAndNull()
+        {
+            var sideA = 0;
+            var sideB = 5;
+            var sideC = 8;
+
+            var result = Triangle.TryCreate(sideA, sideB, sideC, out var triangle);
+
+            Assert.That(result, Is.False, "Triangle is not be created.");
+            Assert.That(triangle, Is.Null, "Triangle is not be created.");
+        }
     }
 }
